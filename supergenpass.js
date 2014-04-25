@@ -53,7 +53,7 @@
 
 	function gp2_generate_hash(HashSeed,Method) {
 		for(var i=0;i<=4;i++) {
-			HashSeed=hex_hash(HashSeed,Method);
+			HashSeed=hashlib.hex_hash(HashSeed,Method);
 		}
 		return HashSeed;
 	}
@@ -129,6 +129,12 @@
 			options.length,
 			options.method
 		);
+	};
+
+	api._hash = function(string, options){
+		options = options || {};
+		options.method = options.method || 'md5';
+		return gp2_generate_hash(string, options.method);
 	};
 
 
