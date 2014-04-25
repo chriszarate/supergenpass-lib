@@ -8,7 +8,7 @@
 	continually until password policy is satisfied.
 */
 
-var hash = require('./src/sgp.hash');
+var hash = require('./src/hash');
 
 function gp2_generate_passwd(Passwd,Len,Method) {
 	var i=0;
