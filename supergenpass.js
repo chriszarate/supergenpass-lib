@@ -8,10 +8,12 @@
 	continually until password policy is satisfied.
 */
 
+var hash = require('./src/sgp.hash');
+
 function gp2_generate_passwd(Passwd,Len,Method) {
 	var i=0;
 	while(i<10||!(gp2_check_passwd(Passwd.substring(0,Len)))) {
-		Passwd=b64_hash(Passwd,Method);
+		Passwd=hash.b64_hash(Passwd,Method);
 		i++;
 	}
 	return Passwd.substring(0,Len);
@@ -98,19 +100,19 @@ function gp2_process_uri(URI,DisableTLD) {
 }
 
 
-/*
-	== Password generator helper ==
-	Gather and validate input for password generator.
-*/
+module.exports = function(password, domain, options){
+	options = options || {};
+	options.disableTLD = options.disableTLD || false;
+	options.length = options.length || 10;
+	options.method = options.method || 'md5';
+	options.salt = options.salt || '';
 
-function gp2_genpass(Passwd,Domain,Len,Salt,DisableTLD,Method) {
+	domain = gp2_process_uri(domain, options.disableTLD);
+	options.length = gp2_validate_length(options.length, options.method);
 
-	Passwd=(Passwd)?unescape(Passwd):prompt('Please enter your master password:');
-	Salt=(Salt)?unescape(Salt):'';
-	Method=Method||'md5',
-	Domain=(Domain)?gp2_process_uri(Domain,DisableTLD):gp2_process_uri(window.location.href,DisableTLD);
-	Len=gp2_validate_length(Len,Method);
-
-	return (Passwd)?gp2_generate_passwd(Passwd+Salt+':'+Domain,Len,Method):false;
-
-}
+	return gp2_generate_passwd(
+		password + options.salt + ':' + domain,
+		options.length,
+		options.method
+	);
+};

@@ -8,17 +8,18 @@
  */
 
 /*
- * SuperGenPass wrapper functions. SuperGenPass uses MD5 by default but offers 
+ * SuperGenPass wrapper functions. SuperGenPass uses MD5 by default but offers
  * SHA-512 as an alternative. Unnecessary or unused functions are deleted.
  */
 
-function hex_hash(s,Method) {
-	return (Method=='sha512')?hex_sha512(s):hex_md5(s);
-}
-
-function b64_hash(s,Method) {
-	return (Method=='sha512')?b64_sha512(s):b64_md5(s);
-}
+module.exports = {
+  hex_hash: function(s,Method) {
+    return (Method=='sha512')?hex_sha512(s):hex_md5(s);
+  },
+  b64_hash: function (s,Method) {
+   return (Method=='sha512')?b64_sha512(s):b64_md5(s);
+  }
+};
 
 /*
  * Configurable variables. You may need to tweak these to be compatible with

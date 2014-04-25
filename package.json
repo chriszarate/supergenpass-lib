@@ -1,0 +1,19 @@
+{
+  "name": "supergenpass-lib",
+  "version": "0.0.0",
+  "description": "Generate passwords with SuperGenPass",
+  "main": "supergenpass.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chriszarate/supergenpass-lib.git"
+  },
+  "author": "Chris Zarate",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/chriszarate/supergenpass-lib/issues"
+  },
+  "homepage": "https://github.com/chriszarate/supergenpass-lib"
+}
