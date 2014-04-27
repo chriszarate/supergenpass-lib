@@ -22,6 +22,7 @@
     "gulp": "^3.6.2",
     "vinyl-source-stream": "^0.1.1",
     "gulp-uglify": "^0.2.1",
-    "gulp-streamify": "0.0.5"
+    "gulp-streamify": "0.0.5",
+    "gulp-clean": "^0.2.4"
   }
 }
