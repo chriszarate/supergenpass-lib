@@ -28,5 +28,5 @@ supergenpass('master-password', 'domain.example.com', {
 });
 ```
 
-In browser environments you can include `src/hash.js` and `supergenpass.js` and
-the API will be available using a global `supergenpass`.
+To use supergenpass library in browser environments, run `gulp browserify`.
+Take the created `dist/supergenpass.browser.js`, include it on your page and use the global `supergenpass`.

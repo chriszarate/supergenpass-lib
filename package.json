@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/chriszarate/supergenpass-lib",
   "devDependencies": {
-    "nodeunit": "^0.8.6"
+    "nodeunit": "^0.8.6",
+    "browserify": "^3.44.2",
+    "gulp": "^3.6.2",
+    "vinyl-source-stream": "^0.1.1"
   }
 }
