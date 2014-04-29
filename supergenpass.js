@@ -2,7 +2,38 @@
 	SuperGenPass core functions
 */
 
-var hashlib = require('./src/hash');
+// Require hash libraries.
+var md5 = require('crypto-js/md5');
+var sha512 = require('crypto-js/sha512');
+var encBase64 = require('crypto-js/enc-Base64');
+
+
+// gp2_hex_hash
+// ------------
+// Compute a hex-encoded MD5 or SHA-512 hash.
+
+function gp2_hex_hash(Input, Method) {
+	var hash = ( Method == 'sha512' ) ? sha512(Input) : md5(Input);
+	return hash.toString();
+}
+
+// gp2_b64_hash
+// ------------
+// Compute a custom base64-encoded MD5 or SHA-512 hash.
+
+function gp2_b64_hash(Input, Method) {
+	var hash = ( Method == 'sha512' ) ? sha512(Input) : md5(Input);
+	return gp2_custom_base64(hash.toString(encBase64));
+}
+
+// gp2_custom_base64
+// -----------------
+// Replace non-alphanumeric characters and padding in the Base64 alphabet to
+// comply with most password policies.
+
+function gp2_custom_base64(str) {
+	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
+}
 
 
 
@@ -15,7 +46,7 @@ var hashlib = require('./src/hash');
 function gp2_generate_passwd(Passwd,Len,Method) {
 	var i=0;
 	while(i<10||!(gp2_check_passwd(Passwd.substring(0,Len)))) {
-		Passwd=hashlib.b64_hash(Passwd,Method);
+		Passwd=gp2_b64_hash(Passwd,Method);
 		i++;
 	}
 	return Passwd.substring(0,Len);
@@ -42,7 +73,7 @@ function gp2_check_passwd(Passwd) {
 
 function gp2_generate_hash(HashSeed,Method) {
 	for(var i=0;i<=4;i++) {
-		HashSeed=hashlib.hex_hash(HashSeed,Method);
+		HashSeed=gp2_hex_hash(HashSeed,Method);
 	}
 	return HashSeed;
 }
