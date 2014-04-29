@@ -110,22 +110,49 @@ function gp2_process_uri(URI,DisableTLD) {
 }
 
 
+// Public API
+// ----------
+// supergenpass('master-password', 'example.com', {...});
 
-var api = function(password, domain, options){
+// Generates a SuperGenPass-compatible password. The third parameter is an
+// options hash allowing:
+// - secret:     string appended to the master password
+// - length:     generated password length (default: 10)
+// - method:     md5 or sha512 (default: md5)
+// - disableTLD: disable subdomain removal (default: false)
+
+var api = function (masterPassword, domain, options) {
+
+	// Load options.
 	options = options || {};
-	options.disableTLD = options.disableTLD || false;
-	options.length = options.length || 10;
+	options.secret = options.secret || options.salt || '';
+	options.length = gp2_validate_length(options.length);
 	options.method = options.method || 'md5';
-	options.salt = options.salt || '';
+	options.disableTLD = options.disableTLD || false;
 
+	// Load input.
 	domain = gp2_process_uri(domain, options.disableTLD);
-	options.length = gp2_validate_length(options.length, options.method);
 
+	// Generate password.
 	return gp2_generate_passwd(
-		password + options.salt + ':' + domain,
+		masterPassword + options.secret + ':' + domain,
 		options.length,
 		options.method
 	);
+
 };
 
+
+// Public API method: isolateHostname
+// ----------------------------------
+// supergenpass.isolateHostname(uri, disableTLD)
+
+// Processes a URI to isolate the domain name or IP address. By default, it
+// attempts to remove subdomains for the TLDs it knows about (set `disableTLD`
+// to true to disable this behavior).
+
+api.isolateHostname = gp2_process_uri;
+
+
+// Export public API.
 module.exports = api;
