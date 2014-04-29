@@ -7,15 +7,14 @@ SuperGenPass password generation engine.
 
 ## Usage
 
-There is a single piece of API available, just calling the module.
-The only required piece of information is master password and the domain.
-
 ```javascript
 var supergenpass = require('supergenpass');
 
+// Generate a password.
 supergenpass('master-password', 'domain.example.com', {
+
     // Disable sudomain removal
-    disableTld: false,
+    disableTLD: false,
 
     // Length of the generated password
     length: 10,
@@ -24,8 +23,13 @@ supergenpass('master-password', 'domain.example.com', {
     method: 'md5',
 
     // Optional secret in addition to master password
-    salt: ''
+    secret: ''
+
 });
+
+// Isolate a hostname using SGP's rules.
+var disableTLD = true;
+supergenpass.isolateHostname('domain.example.com', disableTLD);
 ```
 
 To use supergenpass library in browser environments, run `gulp browserify`.
