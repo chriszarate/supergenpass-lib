@@ -1,7 +1,7 @@
 # supergenpass-lib
 
 [![Build Status](https://secure.travis-ci.org/chriszarate/supergenpass-lib.png?branch=master)](http://travis-ci.org/chriszarate/supergenpass-lib)
-
+[![Dependency Status](https://gemnasium.com/chriszarate/supergenpass-lib.svg)](https://gemnasium.com/chriszarate/supergenpass-lib)
 
 SuperGenPass password generation engine.
 
@@ -16,13 +16,13 @@ var supergenpass = require('supergenpass');
 supergenpass('master-password', 'domain.example.com', {
     // Disable sudomain removal
     disableTld: false,
-    
+
     // Length of the generated password
     length: 10,
-    
+
     // md5 or sha512
     method: 'md5',
-    
+
     // Optional secret in addition to master password
     salt: ''
 });
