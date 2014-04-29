@@ -18,17 +18,9 @@ var data = [
     };
 });
 
-exports.testSimple = function(test){
+exports.testUnicode = function(test){
     data.forEach(function(row){
         test.equal(supergenpass(row.input, 'example.com'), row.sgp);
     });
-    test.done();
-};
-
-exports.testHash = function(test){
-    data.forEach(function(row){
-        test.equal(supergenpass._hash(row.input), row.hash);
-    });
-
     test.done();
 };
