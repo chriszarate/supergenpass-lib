@@ -5,7 +5,7 @@
 // Require hash libraries.
 var md5 = require('crypto-js/md5');
 var sha512 = require('crypto-js/sha512');
-var encBase64 = require('crypto-js/enc-Base64');
+var encBase64 = require('crypto-js/enc-base64');
 
 
 // gp2_hex_hash
