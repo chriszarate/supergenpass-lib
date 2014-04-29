@@ -24,5 +24,8 @@
     "gulp-uglify": "^0.2.1",
     "gulp-streamify": "0.0.5",
     "gulp-clean": "^0.2.4"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.2-3"
   }
 }
