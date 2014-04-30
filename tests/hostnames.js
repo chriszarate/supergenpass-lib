@@ -51,8 +51,8 @@ exports.testHostnames = function (test) {
   ];
 
   hostnames.forEach(function(c) {
-    test.equal(supergenpass.isolateHostname(c[0], false), c[1]);
-    test.equal(supergenpass.isolateHostname(c[0], true), c[2]);
+    test.equal(supergenpass.hostname(c[0], { disableTLD: false }), c[1]);
+    test.equal(supergenpass.hostname(c[0], { disableTLD: true }), c[2]);
   });
 
   test.done();

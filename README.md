@@ -10,8 +10,8 @@ SuperGenPass password generation engine.
 ```javascript
 var supergenpass = require('supergenpass');
 
-// Generate a password.
-supergenpass('master-password', 'domain.example.com', {
+// Generate a password from a master password and a URL or a domain.
+supergenpass('master-password', 'http://domain.example.com/', {
 
     // Disable subdomain removal
     disableTLD: false,
@@ -27,9 +27,11 @@ supergenpass('master-password', 'domain.example.com', {
 
 });
 
-// Isolate a hostname using SGP's rules.
-var disableTLD = true;
-supergenpass.isolateHostname('domain.example.com', disableTLD);
+// Isolate a hostname from a URL using SGP's rules.
+supergenpass.hostname('http://domain.example.com/', {
+    // Disable subdomain removal
+    disableTLD: false
+});
 ```
 
 To use supergenpass library in browser environments, run `gulp browserify`.
