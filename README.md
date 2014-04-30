@@ -13,7 +13,7 @@ var supergenpass = require('supergenpass');
 // Generate a password.
 supergenpass('master-password', 'domain.example.com', {
 
-    // Disable sudomain removal
+    // Disable subdomain removal
     disableTLD: false,
 
     // Length of the generated password
