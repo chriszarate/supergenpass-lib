@@ -145,13 +145,20 @@ var api = function (masterPassword, domain, options) {
 
 // Public API method: isolateHostname
 // ----------------------------------
-// supergenpass.isolateHostname(uri, disableTLD)
+// supergenpass.hostname(uri, {...})
 
 // Processes a URI to isolate the domain name or IP address. By default, it
 // attempts to remove subdomains for the TLDs it knows about (set `disableTLD`
 // to true to disable this behavior).
 
-api.isolateHostname = gp2_process_uri;
+api.hostname = function (url, options) {
+
+	// Load options.
+	options = options || {};
+	options.disableTLD = options.disableTLD || false;
+
+	return gp2_process_uri(url, options.disableTLD);
+};
 
 
 // Export public API.
