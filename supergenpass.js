@@ -110,8 +110,7 @@ function gp2_process_uri(URI,DisableTLD) {
 }
 
 
-// Public API
-// ----------
+/* Public API */
 
 var api = function (masterPassword, domain, options) {
 
@@ -134,7 +133,15 @@ var api = function (masterPassword, domain, options) {
 
 };
 
-api.isolateHostname = gp2_process_uri;
+api.hostname = function (url, options) {
+
+	// Load options.
+	options = options || {};
+	options.disableTLD = options.disableTLD || false;
+
+	return gp2_process_uri(url, options.disableTLD);
+
+};
 
 // Export public API.
 module.exports = api;
