@@ -13,14 +13,14 @@ var supergenpass = require('supergenpass');
 // Generate a password from a master password and a URL or a domain.
 supergenpass('master-password', 'http://domain.example.com/', {
 
-    // Disable subdomain removal
-    disableTLD: false,
-
     // Length of the generated password
     length: 10,
 
     // md5 or sha512
     method: 'md5',
+
+    // Use subdomain removal
+    removeSubdomains: true,
 
     // Optional secret in addition to master password
     secret: ''
@@ -29,8 +29,8 @@ supergenpass('master-password', 'http://domain.example.com/', {
 
 // Isolate a hostname from a URL using SGP's rules.
 supergenpass.hostname('http://domain.example.com/', {
-    // Disable subdomain removal
-    disableTLD: false
+    // Use subdomain removal
+    removeSubdomains: true
 });
 ```
 
