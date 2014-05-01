@@ -58,13 +58,12 @@ function gp2_check_passwd(Passwd) {
 
 /*
 	== Length validator ==
-	Password length must be no less than 4 characters.
-	Default is 10.
+	Password length must be no less than 4 characters and
+	no more than 24 characters. Default is 10.
 */
 
-function gp2_validate_length(n,Method) {
-	var LenMax=(Method=='sha512')?24:22;
-	return (parseInt(n,10))?Math.max(4,Math.min(parseInt(n,10),LenMax)):10;
+function gp2_validate_length(n) {
+	return (parseInt(n,10))?Math.max(4,Math.min(parseInt(n,10),24)):10;
 }
 
 
