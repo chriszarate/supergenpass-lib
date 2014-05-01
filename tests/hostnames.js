@@ -6,7 +6,7 @@ exports.testHostnames = function (test) {
     [
       'http://www.google.com/search',  // input URI
       'google.com',                    // default
-      'www.google.com'                 // disableTLD = true
+      'www.google.com'                 // removeSubdomains = false
     ],
     [
       'https://mail.google.com/mail/u/0/',
