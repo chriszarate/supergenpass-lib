@@ -118,12 +118,11 @@ var api = function (masterPassword, domain, options) {
 	options.secret = options.secret || options.salt || '';
 	options.length = gp2_validate_length(options.length);
 	options.method = options.method || 'md5';
-	options.removeSubdomains = typeof options.removeSubdomains === 'undefined' ?
-		true :
-		!!options.removeSubdomains;
 
 	// Load input.
-	domain = gp2_process_uri(domain, !options.removeSubdomains);
+	domain = api.hostname(domain, {
+		removeSubdomains: options.removeSubdomains
+	});
 
 	// Generate password.
 	return gp2_generate_passwd(
