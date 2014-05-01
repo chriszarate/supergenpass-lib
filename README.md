@@ -14,6 +14,10 @@ var supergenpass = require('supergenpass');
 supergenpass('master-password', 'http://domain.example.com/', {
 
     // Length of the generated password
+    // Valid length is between 4 to 24 inclusive.
+    // 
+    // (Lengths 23 and 24 using md5 method provide no security
+    // over length of 22, allowed only for backwards compatibility)
     length: 10,
 
     // md5 or sha512
