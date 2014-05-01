@@ -1,20 +1,19 @@
 var supergenpass = require('../supergenpass');
 
 var data = [
-    ['ft8iv4t5sX', '81484f5b1be9f32cab18db8062fc1eb4', 'Γαζέες καὶ μυρτιὲς δὲν θὰ βρῶ πιὰ στὸ χρυσαφὶ ξέφωτο'],
-    ['o1AWdbILuJ', 'f12c637940b0cf480d7f9fd6290699db', 'Benjamín pidió una bebida de kiwi y fresa'],
-    ['uqWgZf34mr', '4f4f752923b897075f59da1ed246a506', 'Ça me fait peur de fêter noël là, sur cette île bizarroïde où'],
-    ['iUL7ndPlsD', '2163dd1ae6bf1d130e8cb8dd370077b4', 'Árvíztűrő tükörfúrógép'],
-    ['fDOVXY6AhC', '7f5c3de71ae6ed14b914a6265e838b5a', 'わかよたれそつねならむ'],
-    ['i4LtmfRGl8', 'b0850bcf60776d2c715653a1989ee5e3', 'ウヰノオクヤマ ケフコエテ'],
-    ['wD8T8KozGO', '7f1d9033d1bb015d47bcc0ef7818ff47', 'מצא לו חברה איך הקליטה'],
-    ['jtUcAzTL4l', '15cdb91508cd166e8c6b892e24adec42', 'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!'],
-    ['rnXePhv0JG', '41a4c24acb77ac1beadec1da28f60623', 'จงฝ่าฟันพัฒนาวิชาการ']
+    ['ft8iv4t5sX', 'Γαζέες καὶ μυρτιὲς δὲν θὰ βρῶ πιὰ στὸ χρυσαφὶ ξέφωτο'],
+    ['o1AWdbILuJ', 'Benjamín pidió una bebida de kiwi y fresa'],
+    ['uqWgZf34mr', 'Ça me fait peur de fêter noël là, sur cette île bizarroïde où'],
+    ['iUL7ndPlsD', 'Árvíztűrő tükörfúrógép'],
+    ['fDOVXY6AhC', 'わかよたれそつねならむ'],
+    ['i4LtmfRGl8', 'ウヰノオクヤマ ケフコエテ'],
+    ['wD8T8KozGO', 'מצא לו חברה איך הקליטה'],
+    ['jtUcAzTL4l', 'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!'],
+    ['rnXePhv0JG', 'จงฝ่าฟันพัฒนาวิชาการ']
 ].map(function(row){
     return {
-        input: row[2],
-        sgp: row[0],
-        hash: row[1]
+        input: row[1],
+        sgp: row[0]
     };
 });
 
