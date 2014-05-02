@@ -120,7 +120,7 @@ var api = function (masterPassword, domain, options) {
 	options.length = typeof options.length === 'undefined' ?
 		10 : Number(options.length);
 
-	if (isNaN(options.length) || options.length < 1) {
+	if (isNaN(options.length) || options.length < 4 || 24 < options.length) {
 		throw new Error('Invalid length passed');
 	}
 
