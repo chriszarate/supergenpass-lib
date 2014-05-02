@@ -116,8 +116,17 @@ var api = function (masterPassword, domain, options) {
 	// Load options.
 	options = options || {};
 	options.secret = options.secret || options.salt || '';
-	options.length = gp2_validate_length(options.length);
 	options.method = options.method || 'md5';
+	options.length = typeof options.length === 'undefined' ?
+		10 : Number(options.length);
+
+	if (isNaN(options.length) || options.length < 1) {
+		throw new Error('Invalid length passed');
+	}
+
+	if (['md5', 'sha512'].indexOf(options.method) === -1) {
+		throw new Error('Unknown method ' + options.method);
+	}
 
 	// Load input.
 	domain = api.hostname(domain, {
@@ -127,7 +136,7 @@ var api = function (masterPassword, domain, options) {
 	// Generate password.
 	return gp2_generate_passwd(
 		masterPassword + options.secret + ':' + domain,
-		options.length,
+		gp2_validate_length(options.length),
 		options.method
 	);
 
