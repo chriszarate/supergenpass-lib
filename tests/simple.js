@@ -5,7 +5,6 @@ exports.testSimple = function(test){
         ['w9UbG0NEk7', 'test', 'example.com'],
         ['sJfoZg3nU8', 'test', 'example.com', { method: 'sha512' }],
         ['aC81', 'test', 'example.com', { length: 4, method: 'sha512' }],
-        ['w9Ub', 'test', 'example.com', { length: 2 }],
         ['vBKDNdjhhL6dBfgDSRxZxAAA', 'test', 'example.com', { length: 100, method: 'md5' }],
         ['sJfoZg3nU8y32EyHFRlSY08u', 'test', 'example.com', { length: 100, method: 'sha512' }],
         ['zPQSNhTzs9fS', 'test', 'https://www.google.com/', { length: 12, secret: 'test' }],
