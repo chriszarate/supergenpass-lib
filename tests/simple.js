@@ -20,3 +20,15 @@ exports.testSimple = function(test){
 
     test.done();
 };
+
+exports.testLengthLimit = function(test){
+    test.equal(
+        supergenpass('test', 'example.com', { length: 1 }),
+        supergenpass('test', 'example.com', { length: 4 })
+    );
+    test.equal(
+        supergenpass('test', 'example.com', { length: 24 }),
+        supergenpass('test', 'example.com', { length: 28 })
+    );
+    test.done();
+};
