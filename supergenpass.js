@@ -7,24 +7,37 @@ var md5 = require('crypto-js/md5');
 var sha512 = require('crypto-js/sha512');
 var encBase64 = require('crypto-js/enc-base64');
 
+// Create hash functions object.
+var hashFunctions = {
+	md5: md5,
+	sha512: sha512
+};
 
-// gp2_b64_hash
+
+// customBase64Hash
+// ----------------
+// Compute a custom Base-64-encoded hash.
+
+var customBase64Hash = function (str, hashFunction) {
+
+	// Compute hexadecimal hash and convert it to Base-64.
+	var hash = hashFunction(str).toString(encBase64);
+
+	// Return a custom version of the hash.
+	return customBase64(hash);
+
+};
+
+
+// customBase64
 // ------------
-// Compute a custom base64-encoded MD5 or SHA-512 hash.
-
-function gp2_b64_hash(Input, Method) {
-	var hash = ( Method == 'sha512' ) ? sha512(Input) : md5(Input);
-	return gp2_custom_base64(hash.toString(encBase64));
-}
-
-// gp2_custom_base64
-// -----------------
-// Replace non-alphanumeric characters and padding in the Base64 alphabet to
+// Replace non-alphanumeric characters and padding in the Base-64 alphabet to
 // comply with most password policies.
 
-function gp2_custom_base64(str) {
+var customBase64 = function (str) {
 	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
-}
+};
+
 
 
 /*
@@ -36,7 +49,7 @@ function gp2_custom_base64(str) {
 function gp2_generate_passwd(Passwd,Len,Method) {
 	var i=0;
 	while(i<10||!(gp2_check_passwd(Passwd.substring(0,Len)))) {
-		Passwd=gp2_b64_hash(Passwd,Method);
+		Passwd=customBase64Hash(Passwd,Method);
 		i++;
 	}
 	return Passwd.substring(0,Len);
@@ -112,8 +125,8 @@ var api = function (masterPassword, domain, options) {
 		throw new Error('Length must be an integer between 4 and 24: ' + options.length);
 	}
 
-	if (['md5', 'sha512'].indexOf(options.method) === -1) {
-		throw new Error('Unknown method ' + options.method);
+	if (!hashFunctions.hasOwnProperty(options.method)) {
+		throw new Error('Method not supported: ' + options.method);
 	}
 
 	// Load input.
@@ -125,7 +138,7 @@ var api = function (masterPassword, domain, options) {
 	return gp2_generate_passwd(
 		masterPassword + options.secret + ':' + domain,
 		options.length,
-		options.method
+		hashFunctions[options.method]
 	);
 
 };
