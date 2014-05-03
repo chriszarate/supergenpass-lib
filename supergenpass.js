@@ -1,9 +1,9 @@
 /*!
-* SuperGenPass library
-* https://github.com/chriszarate/supergenpass-lib
-* http://supergenpass.com
-* License: GPLv2
-*/
+ * SuperGenPass library
+ * https://github.com/chriszarate/supergenpass-lib
+ * http://supergenpass.com
+ * License: GPLv2
+ */
 
 
 // Require hash libraries.
