@@ -106,11 +106,10 @@ var api = function (masterPassword, domain, options) {
 	options = options || {};
 	options.secret = options.secret || options.salt || '';
 	options.method = options.method || 'md5';
-	options.length = typeof options.length === 'undefined' ?
-		10 : Number(options.length);
+	options.length = options.length || 10;
 
-	if (isNaN(options.length) || options.length < 4 || 24 < options.length) {
-		throw new Error('Invalid length passed');
+	if (options.length !== parseInt(options.length) || options.length < 4 || 24 < options.length) {
+		throw new Error('Length must be an integer between 4 and 24: ' + options.length);
 	}
 
 	if (['md5', 'sha512'].indexOf(options.method) === -1) {
