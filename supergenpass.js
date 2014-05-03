@@ -80,7 +80,7 @@ function gp2_check_passwd(Passwd) {
 	secondary ccTLDs (e.g., "co.uk").
 */
 
-function gp2_process_uri(URI,DisableTLD) {
+function gp2_process_uri(URI,RemoveSubdomains) {
 
 	URI=URI.toLowerCase();
 	var HostNameIsolator=new RegExp('^(http|https|ftp|ftps|webdav|gopher|rtsp|irc|nntp|pop|imap|smtp)://([^/:]+)');
@@ -97,7 +97,7 @@ function gp2_process_uri(URI,DisableTLD) {
 	HostNameIsolator=new RegExp('^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})$');
 	HostName=(HostName.match(HostNameIsolator))?[HostName]:HostName.split('.');
 
-	if(HostName.length===1||DisableTLD) {
+	if(HostName.length===1||!RemoveSubdomains) {
 		URI=HostName.join('.');
 	} else {
 		URI=HostName[HostName.length-2]+'.'+HostName[HostName.length-1];
@@ -155,7 +155,7 @@ api.hostname = function (url, options) {
 		true :
 		!!options.removeSubdomains;
 
-	return gp2_process_uri(url, !options.removeSubdomains);
+	return gp2_process_uri(url, options.removeSubdomains);
 
 };
 
