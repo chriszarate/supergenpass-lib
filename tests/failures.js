@@ -5,6 +5,8 @@ exports.testFailure = function(test){
         { method: 'unknown' },
         { length: -1 },
         { length: '123foo' },
+        { length: 3 },
+        { length: 28 },
     ];
 
     data.forEach(function(c){
