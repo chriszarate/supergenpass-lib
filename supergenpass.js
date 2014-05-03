@@ -57,17 +57,6 @@ function gp2_check_passwd(Passwd) {
 
 
 /*
-	== Length validator ==
-	Password length must be no less than 4 characters and
-	no more than 24 characters. Default is 10.
-*/
-
-function gp2_validate_length(n) {
-	return (parseInt(n,10))?Math.max(4,Math.min(parseInt(n,10),24)):10;
-}
-
-
-/*
 	== Domain name isolator ==
 	Isolates the domain name or IP address using regular
 	expressions. Respects a number of (hard-coded)
@@ -136,7 +125,7 @@ var api = function (masterPassword, domain, options) {
 	// Generate password.
 	return gp2_generate_passwd(
 		masterPassword + options.secret + ':' + domain,
-		gp2_validate_length(options.length),
+		options.length,
 		options.method
 	);
 
