@@ -44,33 +44,51 @@ var customBase64 = function (str) {
 
 
 
-/*
-	== Password generator ==
-	Loops ten times using Base-64 hash, then
-	continually until password policy is satisfied.
-*/
+// generatePassword
+// ----------------
+// Loops ten times using customBase64Hash, then continues hashing until the
+// password policy is satisfied.
 
-function gp2_generate_passwd(Passwd,Len,Method) {
-	var i=0;
-	while(i<10||!(gp2_check_passwd(Passwd.substring(0,Len)))) {
-		Passwd=customBase64Hash(Passwd,Method);
+var generatePassword = function (masterPassword, length, hashFunction) {
+
+	// Initialize counter, generated password, and password validation indicator.
+	var i = 0;
+	var generatedPassword = masterPassword;
+	var passwordIsInvalid = true;
+
+	// Hash until password is valid.
+	while (passwordIsInvalid) {
 		i++;
+		generatedPassword = customBase64Hash(generatedPassword, hashFunction);
+		passwordIsInvalid = i < 10 || !validatePassword(generatedPassword, length);
 	}
-	return Passwd.substring(0,Len);
-}
+
+	// Return generated password, cut to requested length.
+	return generatedPassword.substring(0, length);
+
+};
 
 
-/*
-	== Password policy validator ==
-	Input must:
-	- Always start with a lowercase letter [a-z]
-	- Always contain at least one uppercase letter [A-Z]
-	- Always contain at least one numeral [0-9]
-*/
+// validatePassword
+// ----------------
+// Validate a password to the standards of SuperGenPass.
 
-function gp2_check_passwd(Passwd) {
-	return (Passwd.search(/[a-z]/)===0&&Passwd.search(/[0-9]/)>0&&Passwd.search(/[A-Z]/)>0)?true:false;
-}
+var validatePassword = function (str, length) {
+
+	// Cut password to requested length.
+	var password = str.substring(0, length);
+
+	// 1. Password must start with a lowercase letter [a-z].
+	// 2. Password must contain at least one uppercase letter [A-Z].
+	// 3. Password must contain at least one numeral [0-9].
+	var test1 = password.search(/[a-z]/) === 0;
+	var test2 = password.search(/[0-9]/) > 0;
+	var test3 = password.search(/[A-Z]/) > 0;
+
+	// Return true if all tests are satisfied.
+	return test1 && test2 && test3;
+
+};
 
 
 /*
@@ -139,7 +157,7 @@ var api = function (masterPassword, domain, options) {
 	});
 
 	// Generate password.
-	return gp2_generate_passwd(
+	return generatePassword(
 		masterPassword + options.secret + ':' + domain,
 		options.length,
 		hashFunctions[options.method]
