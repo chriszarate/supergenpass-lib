@@ -1,6 +1,10 @@
-/*
-	SuperGenPass core functions
+/*!
+* SuperGenPass library
+* https://github.com/chriszarate/supergenpass-lib
+* http://supergenpass.com
+* License: GPLv2
 */
+
 
 // Require hash libraries.
 var md5 = require('crypto-js/md5');
