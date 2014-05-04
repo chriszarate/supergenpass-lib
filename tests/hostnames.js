@@ -24,6 +24,11 @@ exports.testHostnames = function (test) {
       'mail.outlook.com'
     ],
     [
+      'www.example.com/path/to/page?param=value',
+      'example.com',
+      'www.example.com'
+    ],
+    [
       'sapporo.hokkaido.jp',
       'sapporo.hokkaido.jp',
       'sapporo.hokkaido.jp'
