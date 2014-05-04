@@ -97,6 +97,51 @@ var validatePassword = function (str, length) {
 };
 
 
+// validateSecret
+// --------------
+// Validate the user's secret password.
+
+var validateSecret = function(str) {
+	var type = typeof str;
+	if (type !== 'string') {
+		throw new Error('Secret password must be a string: ' + type);
+	}
+};
+
+
+// validateMethod
+// --------------
+// Validate the requested hash method.
+
+var validateMethod = function(method) {
+	if (!hashFunctions.hasOwnProperty(method)) {
+		throw new Error('Method not supported: ' + method);
+	}
+};
+
+
+// validateLength
+// --------------
+// Validate the requested password length.
+
+var validateLength = function(num) {
+	if (num !== parseInt(num) || num < 4 || 24 < num) {
+		throw new Error('Length must be an integer between 4 and 24: ' + num);
+	}
+};
+
+
+// validateOptions
+// ---------------
+// Validate the options object.
+
+var validateOptions = function(options) {
+	validateSecret(options.secret);
+	validateMethod(options.method);
+	validateLength(options.length);
+};
+
+
 // getDomainName
 // -------------
 // Isolate the domain name of a URL.
@@ -178,13 +223,8 @@ var api = function (masterPassword, domain, options) {
 	options.method = options.method || 'md5';
 	options.length = options.length || 10;
 
-	if (options.length !== parseInt(options.length) || options.length < 4 || 24 < options.length) {
-		throw new Error('Length must be an integer between 4 and 24: ' + options.length);
-	}
-
-	if (!hashFunctions.hasOwnProperty(options.method)) {
-		throw new Error('Method not supported: ' + options.method);
-	}
+	// Validate options.
+	validateOptions(options);
 
 	// Load input.
 	domain = api.hostname(domain, {
