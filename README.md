@@ -1,7 +1,7 @@
 # supergenpass-lib
 
-[![Build Status](https://secure.travis-ci.org/chriszarate/supergenpass-lib.svg?branch=master)](http://travis-ci.org/chriszarate/supergenpass-lib)
-[![Dependency Status](https://gemnasium.com/chriszarate/supergenpass-lib.svg)](https://gemnasium.com/chriszarate/supergenpass-lib)
+[![Build Status][build-status]][travis-ci]
+[![Dependencies Status][dependencies-status]][gemnasium]
 
 SuperGenPass password generation engine.
 
@@ -40,3 +40,8 @@ supergenpass.hostname('http://domain.example.com/', {
 
 To use supergenpass library in browser environments, run `gulp browserify`.
 Take the created `dist/supergenpass.browser.js`, include it on your page and use the global `supergenpass`.
+
+[build-status]: https://secure.travis-ci.org/chriszarate/supergenpass-lib.svg?branch=master
+[dependencies-status]: https://gemnasium.com/chriszarate/supergenpass-lib.svg
+[travis-ci]: http://travis-ci.org/chriszarate/supergenpass-lib
+[gemnasium]: https://gemnasium.com/chriszarate/supergenpass-lib
