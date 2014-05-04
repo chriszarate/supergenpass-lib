@@ -63,11 +63,11 @@ var customBase64 = function (str) {
 // Loops ten times using customBase64Hash, then continues hashing until the
 // password policy is satisfied.
 
-var generatePassword = function (masterPassword, length, hashFunction) {
+var generatePassword = function (hashInput, length, hashFunction) {
 
 	// Initialize counter, generated password, and password validation indicator.
 	var i = 0;
-	var generatedPassword = masterPassword;
+	var generatedPassword = hashInput;
 	var passwordIsInvalid = true;
 
 	// Hash until password is valid.
