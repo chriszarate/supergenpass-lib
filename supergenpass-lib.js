@@ -144,7 +144,7 @@ var validateMethod = function(method) {
 // Validate the requested password length.
 
 var validateLength = function(num) {
-	if (num !== parseInt(num) || num < 4 || 24 < num) {
+	if (num !== parseInt(num, 10) || num < 4 || 24 < num) {
 		throw new Error('Length must be an integer between 4 and 24: ' + num);
 	}
 };
