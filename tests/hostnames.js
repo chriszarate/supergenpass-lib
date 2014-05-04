@@ -24,6 +24,26 @@ exports.testHostnames = function (test) {
       'mail.outlook.com'
     ],
     [
+      'ssh://server.example.com:~/public',
+      'example.com',
+      'server.example.com'
+    ],
+    [
+      'git://git@github.com:user/repo.git',
+      'github.com',
+      'github.com'
+    ],
+    [
+      'gopher://user:password@gopher.example.com',
+      'example.com',
+      'gopher.example.com'
+    ],
+    [
+      'ftp://user:password@ftp.example.com:21/files/',
+      'example.com',
+      'ftp.example.com'
+    ],
+    [
       'www.example.com/path/to/page?param=value',
       'example.com',
       'www.example.com'
