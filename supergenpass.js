@@ -186,8 +186,7 @@ function getDomainName(url, removeSubdomains) {
 	var hostname;
 
 	// Define regexes for various inputs.
-	var protocols = 'http|https|ftp|ftps|webdav|gopher|rtsp|irc|nntp|pop|imap|smtp';
-	var fullURI = new RegExp('^(' + protocols + ')://([^/:]+)');
+	var fullURI = new RegExp('^[a-z]+://([^/:]+)');
 	var shortURI = new RegExp('^([^/:]+)');
 	var ipAddress = new RegExp('^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})$');
 
@@ -195,8 +194,8 @@ function getDomainName(url, removeSubdomains) {
 	var fullURIMatch = url.toLowerCase().match(fullURI);
 	var shortURIMatch = url.toLowerCase().match(shortURI);
 
-	if (fullURIMatch && fullURIMatch.length > 2) {
-		hostname = fullURIMatch[2];
+	if (fullURIMatch && fullURIMatch.length > 1) {
+		hostname = fullURIMatch[1];
 	} else if (shortURIMatch && shortURIMatch.length > 1) {
 		hostname = shortURIMatch[1];
 	} else {
