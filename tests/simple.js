@@ -1,4 +1,4 @@
-var supergenpass = require('../supergenpass');
+var supergenpass = require('../supergenpass-lib');
 
 exports.testSimple = function(test){
     var data = [

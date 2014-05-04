@@ -1,4 +1,4 @@
-var supergenpass = require('../supergenpass');
+var supergenpass = require('../supergenpass-lib');
 
 var data = [
     ['ft8iv4t5sX', 'Γαζέες καὶ μυρτιὲς δὲν θὰ βρῶ πιὰ στὸ χρυσαφὶ ξέφωτο'],

@@ -2,7 +2,7 @@
   "name": "supergenpass-lib",
   "version": "0.5.0",
   "description": "Generate passwords with SuperGenPass",
-  "main": "supergenpass.js",
+  "main": "supergenpass-lib.js",
   "scripts": {
     "test": "nodeunit tests"
   },
