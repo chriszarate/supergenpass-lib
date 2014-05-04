@@ -105,14 +105,25 @@ var validatePassword = function (str, length) {
 };
 
 
-// validateSecret
-// --------------
-// Validate the user's secret password.
+// validatePasswordInput
+// ---------------------
+// Validate a password input.
 
-var validateSecret = function(str) {
+var validatePasswordInput = function(str) {
 	var type = typeof str;
 	if (type !== 'string') {
-		throw new Error('Secret password must be a string: ' + type);
+		throw new Error('Password must be a string, received ' + type);
+	}
+};
+
+
+// validateCombinedPasswordInput
+// -----------------------------
+// Validate password input (master and secret passwords).
+
+var validateCombinedPasswordInput = function(str) {
+	if (!str.length) {
+		throw new Error('Combined password input must not be empty');
 	}
 };
 
@@ -150,13 +161,13 @@ var validateOptions = function(options) {
 
 	// Loop through defaults and test for undefined options.
 	for (var option in defaults) {
-  	if (typeof options[option] === 'undefined') {
+		if (typeof options[option] === 'undefined') {
 			options[option] = defaults[option];
-  	}
+		}
 	}
 
 	// Validate each option.
-	validateSecret(options.secret);
+	validatePasswordInput(options.secret);
 	validateMethod(options.method);
 	validateLength(options.length);
 
@@ -241,6 +252,12 @@ var api = function (masterPassword, url, options) {
 
 	// Validate options.
 	options = validateOptions(options);
+
+	// Validate master password.
+	validatePasswordInput(masterPassword);
+
+	// Validate password input.
+	validateCombinedPasswordInput(masterPassword + options.secret);
 
 	// Get domain name.
 	var domain = getDomainName(url, options.removeSubdomains);
