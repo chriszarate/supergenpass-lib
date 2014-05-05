@@ -17,14 +17,14 @@
   },
   "homepage": "https://github.com/chriszarate/supergenpass-lib",
   "devDependencies": {
-    "nodeunit": "^0.8.6",
     "browserify": "^3.44.2",
     "gulp": "^3.6.2",
-    "vinyl-source-stream": "^0.1.1",
-    "gulp-uglify": "^0.2.1",
+    "gulp-clean": "^0.2.4",
     "gulp-jshint": "^1.5.5",
     "gulp-streamify": "0.0.5",
-    "gulp-clean": "^0.2.4"
+    "gulp-uglify": "^0.2.1",
+    "nodeunit": "^0.8.6",
+    "vinyl-source-stream": "^0.1.1"
   },
   "dependencies": {
     "crypto-js": "^3.1.2-3"
