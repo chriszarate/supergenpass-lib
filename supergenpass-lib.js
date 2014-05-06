@@ -187,19 +187,19 @@ function getDomainName(url, removeSubdomains) {
 	// Placeholder for hostname.
 	var hostname;
 
-	// Define regexes for various inputs.
-	var fullURI = new RegExp('^[a-z]+://([^/@]+@)?([^/:]+)');
-	var shortURI = new RegExp('^([^/:]+)');
-	var ipAddress = new RegExp('^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})$');
+	// Matches an optional protocol (such as “http://”),
+	// an optional authentication (such as “user:password@”)
+	// and then finally the domain (anything until the port
+	// or path if any), case in-sensitively.
+	var domain = /^(?:[a-z]+:\/\/)?(?:[^/@]+@)?([^/:]+)/i;
 
-	// Match a full or short URI.
-	var fullURIMatch = url.toLowerCase().match(fullURI);
-	var shortURIMatch = url.toLowerCase().match(shortURI);
+	// Matches one to three digts, four times, separated by dots.
+	var ipAddress = /^\d{1,3}\.\d{1,3}.\d{1,3}\.\d{1,3}$/;
 
-	if (fullURIMatch && fullURIMatch.length > 2) {
-		hostname = fullURIMatch[2];
-	} else if (shortURIMatch && shortURIMatch.length > 1) {
-		hostname = shortURIMatch[1];
+	var match = url.match(domain);
+
+	if (match) {
+		hostname = match[1];
 	} else {
 		throw new Error('URL is invalid: ' + url);
 	}
@@ -224,21 +224,20 @@ var cleanDomainName = function(hostname) {
 
 	// Split hostname into an array.
 	var hostnameParts = hostname.split('.');
-	var hostnameLength = hostnameParts.length;
 
 	// A hostname with less than three parts is as short as it will get.
-	if (hostnameLength < 3) {
+	if (hostnameParts.length < 3) {
 		return hostname;
 	}
 
 	// Extract a potential domain name.
-	var possibleDomain = hostnameParts.slice(hostnameLength - 2).join('.');
+	var possibleDomain = hostnameParts.slice(-2).join('.');
 
 	// Loop through list of ccTLDs.
 	for (var i = 0; i < ccTLDListLength; i++) {
 		if (possibleDomain === ccTLDList[i]) {
 			// When matched, return the ccTLD plus one extra part.
-			return hostnameParts.slice(hostnameLength - 3).join('.');
+			return hostnameParts.slice(-3).join('.');
 		}
 	}
 
