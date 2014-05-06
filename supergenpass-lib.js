@@ -95,12 +95,14 @@ var validatePassword = function (str, length) {
 	// 1. Password must start with a lowercase letter [a-z].
 	// 2. Password must contain at least one uppercase letter [A-Z].
 	// 3. Password must contain at least one numeral [0-9].
-	var test1 = password.search(/[a-z]/) === 0;
-	var test2 = password.search(/[0-9]/) > 0;
-	var test3 = password.search(/[A-Z]/) > 0;
+	var startsWithLowercaseLetter = /^[a-z]/;
+	var containsUppercaseLetter   = /[A-Z]/;
+	var containsNumeral           = /[0-9]/;
 
 	// Return true if all tests are satisfied.
-	return test1 && test2 && test3;
+	return startsWithLowercaseLetter.test(password) &&
+	       containsUppercaseLetter.test(password) &&
+	       containsNumeral.test(password);
 
 };
 
