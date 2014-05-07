@@ -5,6 +5,7 @@
  * License: GPLv2
  */
 
+'use strict';
 
 // Require hash libraries.
 var md5 = require('crypto-js/md5');
