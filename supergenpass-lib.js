@@ -7,18 +7,15 @@
 
 'use strict';
 
-// Require hash libraries.
 var md5 = require('crypto-js/md5');
 var sha512 = require('crypto-js/sha512');
 var encBase64 = require('crypto-js/enc-base64');
 
-// Create hash functions object.
 var hashFunctions = {
 	md5: md5,
 	sha512: sha512
 };
 
-// Set default options.
 var defaults = {
 	secret: '',
 	method: 'md5',
@@ -32,41 +29,21 @@ var ccTLDs = 'ac.ac|com.ac|edu.ac|gov.ac|net.ac|mil.ac|org.ac|com.ae|net.ae|org.
 var ccTLDList = ccTLDs.split('|');
 var ccTLDListLength = ccTLDList.length;
 
-
-// customBase64Hash
-// ----------------
-// Compute a custom Base-64-encoded hash.
-
 var customBase64Hash = function (str, hashFunction) {
-
 	// Compute hexadecimal hash and convert it to Base-64.
 	var hash = hashFunction(str).toString(encBase64);
-
-	// Return a custom version of the hash.
 	return customBase64(hash);
-
 };
 
-
-// customBase64
-// ------------
 // Replace non-alphanumeric characters and padding in the Base-64 alphabet to
 // comply with most password policies.
-
 var customBase64 = function (str) {
 	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
 };
 
-
-
-// generatePassword
-// ----------------
 // Loops ten times using customBase64Hash, then continues hashing until the
 // password policy is satisfied.
-
 var generatePassword = function (hashInput, length, hashFunction) {
-
-	// Initialize counter, generated password, and password validation indicator.
 	var i = 0;
 	var generatedPassword = hashInput;
 	var passwordIsInvalid = true;
@@ -78,16 +55,10 @@ var generatePassword = function (hashInput, length, hashFunction) {
 		passwordIsInvalid = i < 10 || !validatePassword(generatedPassword, length);
 	}
 
-	// Return generated password, cut to requested length.
 	return generatedPassword.substring(0, length);
-
 };
 
-
-// validatePassword
-// ----------------
 // Validate a password to the standards of SuperGenPass.
-
 var validatePassword = function (str, length) {
 
 	// Cut password to requested length.
@@ -104,13 +75,7 @@ var validatePassword = function (str, length) {
 	return startsWithLowercaseLetter.test(password) &&
 	       containsUppercaseLetter.test(password) &&
 	       containsNumeral.test(password);
-
 };
-
-
-// validatePasswordInput
-// ---------------------
-// Validate a password input.
 
 var validatePasswordInput = function(str) {
 	var type = typeof str;
@@ -119,21 +84,12 @@ var validatePasswordInput = function(str) {
 	}
 };
 
-
-// validateCombinedPasswordInput
-// -----------------------------
 // Validate password input (master and secret passwords).
-
 var validateCombinedPasswordInput = function(str) {
 	if (!str.length) {
 		throw new Error('Combined password input must not be empty');
 	}
 };
-
-
-// validateMethod
-// --------------
-// Validate the requested hash method.
 
 var validateMethod = function(method) {
 	if (!hashFunctions.hasOwnProperty(method)) {
@@ -141,25 +97,14 @@ var validateMethod = function(method) {
 	}
 };
 
-
-// validateLength
-// --------------
-// Validate the requested password length.
-
 var validateLength = function(num) {
 	if (num !== parseInt(num, 10) || num < 4 || 24 < num) {
 		throw new Error('Length must be an integer between 4 and 24: ' + num);
 	}
 };
 
-
-// validateOptions
-// ---------------
 // Validate the options object and extend defaults.
-
 var validateOptions = function(options) {
-
-	// Use empty object if no options were supplied.
 	options = options || {};
 
 	// Loop through defaults and test for undefined options.
@@ -169,23 +114,15 @@ var validateOptions = function(options) {
 		}
 	}
 
-	// Validate each option.
 	validatePasswordInput(options.secret);
 	validateMethod(options.method);
 	validateLength(options.length);
 
 	return options;
-
 };
 
-
-// getDomainName
-// -------------
 // Isolate the domain name of a URL.
-
 function getDomainName(url, removeSubdomains) {
-
-	// Placeholder for hostname.
 	var hostname;
 
 	// Matches an optional protocol (such as “http://”),
@@ -212,18 +149,11 @@ function getDomainName(url, removeSubdomains) {
 
 	// Return the hostname with subdomains removed, if requested.
 	return (removeSubdomains) ? cleanDomainName(hostname) : hostname;
-
 }
 
-
-// cleanDomainName
-// ---------------
 // Remove subdomains while respecting a number of hard-coded secondary ccTLDs
 // (e.g., "co.uk").
-
 var cleanDomainName = function(hostname) {
-
-	// Split hostname into an array.
 	var hostnameParts = hostname.split('.');
 
 	// A hostname with less than three parts is as short as it will get.
@@ -244,45 +174,24 @@ var cleanDomainName = function(hostname) {
 
 	// If no ccTLDs were matched, return the domain name.
 	return possibleDomain;
-
 };
 
 
-// Main API
 var api = function (masterPassword, url, options) {
-
-	// Validate options.
 	options = validateOptions(options);
 
-	// Validate master password.
 	validatePasswordInput(masterPassword);
-
-	// Validate password input.
 	validateCombinedPasswordInput(masterPassword + options.secret);
 
-	// Get domain name.
 	var domain = getDomainName(url, options.removeSubdomains);
-
-	// Construct input.
 	var input = masterPassword + options.secret + ':' + domain;
 
-	// Generate password.
 	return generatePassword(input, options.length, hashFunctions[options.method]);
-
 };
 
-
-// Hostname API method
 api.hostname = function (url, options) {
-
-	// Validate options.
 	options = validateOptions(options);
-
-	// Get domain name.
 	return getDomainName(url, options.removeSubdomains);
-
 };
 
-
-// Export public API.
 module.exports = api;
