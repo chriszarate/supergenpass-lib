@@ -122,7 +122,7 @@ var validateOptions = function(options) {
 };
 
 // Isolate the domain name of a URL.
-function getDomainName(url, removeSubdomains) {
+var getDomainName = function (url, removeSubdomains) {
 	var hostname;
 
 	// Matches an optional protocol (such as “http://”),
