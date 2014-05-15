@@ -146,7 +146,7 @@ var getDomainName = function (url, removeSubdomains) {
 	// Return the hostname with subdomains removed, if requested.
 	return (removeSubdomains) ? cleanDomainName(hostname) : hostname;
 
-}
+};
 
 // Remove subdomains while respecting a number of hard-coded secondary ccTLDs.
 var cleanDomainName = function (hostname) {
