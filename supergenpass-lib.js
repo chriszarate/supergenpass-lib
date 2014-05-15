@@ -29,8 +29,8 @@ var ccTLDs = 'ac.ac|com.ac|edu.ac|gov.ac|net.ac|mil.ac|org.ac|com.ae|net.ae|org.
 var ccTLDList = ccTLDs.split('|');
 var ccTLDListLength = ccTLDList.length;
 
+// Compute hexadecimal hash and convert it to Base-64.
 var customBase64Hash = function (str, hashFunction) {
-	// Compute hexadecimal hash and convert it to Base-64.
 	var hash = hashFunction(str).toString(encBase64);
 	return customBase64(hash);
 };
@@ -41,9 +41,10 @@ var customBase64 = function (str) {
 	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
 };
 
-// Loops ten times using customBase64Hash, then continues hashing until the
+// Loop ten times using customBase64Hash, then continue hashing until the
 // password policy is satisfied.
 var generatePassword = function (hashInput, length, hashFunction) {
+
 	var i = 0;
 	var generatedPassword = hashInput;
 	var passwordIsInvalid = true;
@@ -56,6 +57,7 @@ var generatePassword = function (hashInput, length, hashFunction) {
 	}
 
 	return generatedPassword.substring(0, length);
+
 };
 
 // Validate a password to the standards of SuperGenPass.
@@ -75,36 +77,36 @@ var validatePassword = function (str, length) {
 	return startsWithLowercaseLetter.test(password) &&
 	       containsUppercaseLetter.test(password) &&
 	       containsNumeral.test(password);
+
 };
 
-var validatePasswordInput = function(str) {
+var validatePasswordInput = function (str) {
 	var type = typeof str;
 	if (type !== 'string') {
 		throw new Error('Password must be a string, received ' + type);
 	}
 };
 
-// Validate password input (master and secret passwords).
-var validateCombinedPasswordInput = function(str) {
+var validateCombinedPasswordInput = function (str) {
 	if (!str.length) {
 		throw new Error('Combined password input must not be empty');
 	}
 };
 
-var validateMethod = function(method) {
+var validateMethod = function (method) {
 	if (!hashFunctions.hasOwnProperty(method)) {
 		throw new Error('Method not supported: ' + method);
 	}
 };
 
-var validateLength = function(num) {
+var validateLength = function (num) {
 	if (num !== parseInt(num, 10) || num < 4 || 24 < num) {
 		throw new Error('Length must be an integer between 4 and 24: ' + num);
 	}
 };
 
-// Validate the options object and extend defaults.
-var validateOptions = function(options) {
+var validateOptions = function (options) {
+
 	options = options || {};
 
 	// Loop through defaults and test for undefined options.
@@ -119,22 +121,16 @@ var validateOptions = function(options) {
 	validateLength(options.length);
 
 	return options;
+
 };
 
 // Isolate the domain name of a URL.
 var getDomainName = function (url, removeSubdomains) {
-	var hostname;
 
-	// Matches an optional protocol (such as “http://”),
-	// an optional authentication (such as “user:password@”)
-	// and then finally the domain (anything until the port
-	// or path if any), case in-sensitively.
 	var domain = /^(?:[a-z]+:\/\/)?(?:[^/@]+@)?([^/:]+)/i;
-
-	// Matches one to three digts, four times, separated by dots.
 	var ipAddress = /^\d{1,3}\.\d{1,3}.\d{1,3}\.\d{1,3}$/;
-
 	var match = url.match(domain);
+	var hostname;
 
 	if (match) {
 		hostname = match[1];
@@ -149,11 +145,12 @@ var getDomainName = function (url, removeSubdomains) {
 
 	// Return the hostname with subdomains removed, if requested.
 	return (removeSubdomains) ? cleanDomainName(hostname) : hostname;
+
 }
 
-// Remove subdomains while respecting a number of hard-coded secondary ccTLDs
-// (e.g., "co.uk").
-var cleanDomainName = function(hostname) {
+// Remove subdomains while respecting a number of hard-coded secondary ccTLDs.
+var cleanDomainName = function (hostname) {
+
 	var hostnameParts = hostname.split('.');
 
 	// A hostname with less than three parts is as short as it will get.
@@ -174,12 +171,12 @@ var cleanDomainName = function(hostname) {
 
 	// If no ccTLDs were matched, return the domain name.
 	return possibleDomain;
+
 };
 
-
 var api = function (masterPassword, url, options) {
-	options = validateOptions(options);
 
+	options = validateOptions(options);
 	validatePasswordInput(masterPassword);
 	validateCombinedPasswordInput(masterPassword + options.secret);
 
@@ -187,6 +184,7 @@ var api = function (masterPassword, url, options) {
 	var input = masterPassword + options.secret + ':' + domain;
 
 	return generatePassword(input, options.length, hashFunctions[options.method]);
+
 };
 
 api.hostname = function (url, options) {
