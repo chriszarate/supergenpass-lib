@@ -1,6 +1,7 @@
 # supergenpass-lib
 
 [![Build Status][build-status]][travis-ci]
+[![NPM version][npm-badge]][fury-io]
 [![Dependencies Status][dependencies-status]][gemnasium]
 
 This is the official JavaScript implementation of [SuperGenPass][sgp]. It
@@ -132,7 +133,9 @@ author of the [SuperGenPass Chrome extension][chrome-ext].
 [sgp]: http://supergenpass.com
 [build-status]: https://secure.travis-ci.org/chriszarate/supergenpass-lib.svg?branch=master
 [dependencies-status]: https://gemnasium.com/chriszarate/supergenpass-lib.svg
+[npm-badge]: https://badge.fury.io/js/supergenpass-lib.svg
 [travis-ci]: http://travis-ci.org/chriszarate/supergenpass-lib
+[fury-io]: http://badge.fury.io/js/supergenpass-lib
 [gemnasium]: https://gemnasium.com/chriszarate/supergenpass-lib
 [crypto-js]: https://www.npmjs.org/package/crypto-js
 [denis]: http://sokolov.cc
