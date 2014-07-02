@@ -133,10 +133,12 @@ author of the [SuperGenPass Chrome extension][chrome-ext].
 [sgp]: http://supergenpass.com
 [build-status]: https://secure.travis-ci.org/chriszarate/supergenpass-lib.svg?branch=master
 [dependencies-status]: https://gemnasium.com/chriszarate/supergenpass-lib.svg
+[code-climate-status]: http://img.shields.io/codeclimate/github/chriszarate/supergenpass-lib.svg
 [npm-badge]: https://badge.fury.io/js/supergenpass-lib.svg
 [travis-ci]: http://travis-ci.org/chriszarate/supergenpass-lib
 [fury-io]: http://badge.fury.io/js/supergenpass-lib
 [gemnasium]: https://gemnasium.com/chriszarate/supergenpass-lib
+[code-climate]: https://codeclimate.com/chriszarate/supergenpass-lib
 [crypto-js]: https://www.npmjs.org/package/crypto-js
 [denis]: http://sokolov.cc
 [chrome-ext]: https://chrome.google.com/extensions/detail/bmmmhbgdbpnbfefmacdlbpfgegcibkjo/
