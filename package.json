@@ -4,6 +4,7 @@
   "description": "Generate passwords with SuperGenPass",
   "main": "supergenpass-lib.js",
   "scripts": {
+    "report-coverage": "istanbul cover --report lcovonly nodeunit tests && coveralls < coverage/lcov.info",
     "coverage": "istanbul cover nodeunit tests",
     "test": "nodeunit tests"
   },
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/chriszarate/supergenpass-lib",
   "devDependencies": {
     "browserify": "^3.46.1",
+    "coveralls": "^2.10.1",
     "gulp": "^3.6.2",
     "gulp-clean": "^0.2.4",
     "gulp-jshint": "^1.5.5",
