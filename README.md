@@ -1,6 +1,7 @@
 # supergenpass-lib
 
 [![Build Status][build-status]][travis-ci]
+[![Code Climate][code-climate-status]][code-climate]
 [![NPM version][npm-badge]][fury-io]
 [![Dependencies Status][dependencies-status]][gemnasium]
 
