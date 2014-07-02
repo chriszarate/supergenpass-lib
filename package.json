@@ -4,6 +4,7 @@
   "description": "Generate passwords with SuperGenPass",
   "main": "supergenpass-lib.js",
   "scripts": {
+    "coverage": "istanbul cover nodeunit tests",
     "test": "nodeunit tests"
   },
   "repository": {
@@ -23,6 +24,7 @@
     "gulp-jshint": "^1.5.5",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.2.1",
+    "istanbul": "^0.2.13",
     "nodeunit": "^0.8.8",
     "vinyl-source-stream": "^0.1.1"
   },
