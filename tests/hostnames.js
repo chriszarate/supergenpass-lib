@@ -54,6 +54,11 @@ exports.testHostnames = function (test) {
       'sapporo.hokkaido.jp'
     ],
     [
+      'https://www.test.ltd.co.im',
+      'test.ltd.co.im',
+      'www.test.ltd.co.im'
+    ],
+    [
       'api.example.com:80',
       'example.com',
       'api.example.com'
