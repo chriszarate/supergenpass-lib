@@ -48,6 +48,19 @@ var generatePassword = function (input, length, hashFunction, rounds) {
 	return input.substring(0, length);
 };
 
+// Generate password asynchronously.
+var generatePasswordAsync = function (input, length, hashFunction, rounds, callback) {
+	if (rounds > 0 || !validatePassword(input, length)) {
+		process.nextTick(function () {
+			generatePasswordAsync(hashFunction(input), length, hashFunction, rounds - 1, callback);
+		});
+		return;
+	}
+	process.nextTick(function () {
+		callback(input.substring(0, length));
+	});
+};
+
 // Validate a password to the standards of SuperGenPass.
 var validatePassword = function (str, length) {
 
@@ -166,7 +179,7 @@ var cleanDomainName = function (hostname) {
 
 };
 
-var api = function (masterPassword, url, options) {
+var api = function (masterPassword, url, options, callback) {
 
 	options = validateOptions(options);
 	validatePasswordInput(masterPassword);
@@ -174,6 +187,11 @@ var api = function (masterPassword, url, options) {
 
 	var domain = getDomainName(url, options.removeSubdomains);
 	var input = masterPassword + options.secret + ':' + domain;
+
+	if (typeof callback === 'function') {
+		generatePasswordAsync(input, options.length, hashFunctions[options.method], defaults.hashRounds, callback);
+		return true;
+	}
 
 	return generatePassword(input, options.length, hashFunctions[options.method], defaults.hashRounds);
 
