@@ -12,8 +12,8 @@ var sha512 = require('crypto-js/sha512');
 var encBase64 = require('crypto-js/enc-base64');
 
 var hashFunctions = {
-	md5: md5,
-	sha512: sha512
+	md5: function (str) { return customBase64Hash(str, md5); },
+	sha512: function (str) { return customBase64Hash(str, sha512); }
 };
 
 var defaults = {
@@ -38,7 +38,7 @@ var customBase64 = function (str) {
 	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
 };
 
-// Loop ten times using customBase64Hash, then continue hashing until the
+// Loop ten times using the hash function, then continue hashing until the
 // password policy is satisfied.
 var generatePassword = function (hashInput, length, hashFunction) {
 
@@ -49,7 +49,7 @@ var generatePassword = function (hashInput, length, hashFunction) {
 	// Hash until password is valid.
 	while (passwordIsInvalid) {
 		i++;
-		generatedPassword = customBase64Hash(generatedPassword, hashFunction);
+		generatedPassword = hashFunction(generatedPassword);
 		passwordIsInvalid = i < 10 || !validatePassword(generatedPassword, length);
 	}
 
