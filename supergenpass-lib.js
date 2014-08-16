@@ -20,6 +20,7 @@ var defaults = {
 	secret: '',
 	method: 'md5',
 	length: 10,
+	hashRounds: 10,
 	removeSubdomains: true
 };
 
@@ -38,23 +39,13 @@ var customBase64 = function (str) {
 	return str.replace(/\+/g, '9').replace(/\//g, '8').replace(/\=/g, 'A');
 };
 
-// Loop ten times using the hash function, then continue hashing until the
-// password policy is satisfied.
-var generatePassword = function (hashInput, length, hashFunction) {
-
-	var i = 0;
-	var generatedPassword = hashInput;
-	var passwordIsInvalid = true;
-
-	// Hash until password is valid.
-	while (passwordIsInvalid) {
-		i++;
-		generatedPassword = hashFunction(generatedPassword);
-		passwordIsInvalid = i < 10 || !validatePassword(generatedPassword, length);
+// Hash the input for the requested number of rounds, then continue hashing
+// if the password policy remains unsatisfied.
+var generatePassword = function (input, length, hashFunction, rounds) {
+	if (rounds > 0 || !validatePassword(input, length)) {
+		return generatePassword(hashFunction(input), length, hashFunction, rounds - 1);
 	}
-
-	return generatedPassword.substring(0, length);
-
+	return input.substring(0, length);
 };
 
 // Validate a password to the standards of SuperGenPass.
@@ -184,7 +175,7 @@ var api = function (masterPassword, url, options) {
 	var domain = getDomainName(url, options.removeSubdomains);
 	var input = masterPassword + options.secret + ':' + domain;
 
-	return generatePassword(input, options.length, hashFunctions[options.method]);
+	return generatePassword(input, options.length, hashFunctions[options.method], defaults.hashRounds);
 
 };
 
