@@ -77,6 +77,11 @@ exports.testHostnames = function (test) {
       'https://localhost:8000',
       'localhost',
       'localhost'
+    ],
+    [
+      'https://probably.not.a.real.address',
+      'real.address',
+      'probably.not.a.real.address'
     ]
   ];
 
