@@ -1,6 +1,6 @@
 {
   "name": "supergenpass-lib",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Generate passwords with SuperGenPass",
   "main": "supergenpass-lib.js",
   "scripts": {
