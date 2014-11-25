@@ -25,5 +25,13 @@ exports.testFailures = function(test){
         }, 'Dataset: ' + c[0] + ', ' + c[1] + ', ' + JSON.stringify(c[2]));
     });
 
+    test.throws(function(){
+      supergenpass('test', 'example.com', {});
+    }, 'Missing callback function.');
+
+    test.throws(function(){
+      supergenpass('test', 'example.com', {}, {});
+    }, 'Object in place of callback function.');
+
     test.done();
 };
