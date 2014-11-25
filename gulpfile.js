@@ -24,8 +24,8 @@ gulp.task('browserify', function(){
 	var source = require('vinyl-source-stream');
 	var browserify = require('browserify');
 
-	browserify('./supergenpass-lib')
-		.bundle({ standalone: 'supergenpass' })
+	browserify('./supergenpass-lib', {standalone: 'supergenpass'})
+		.bundle()
 		.pipe(source('supergenpass-lib.browser.js'))
 		.pipe(streamify(uglify({preserveComments: 'some'})))
 		.pipe(gulp.dest('./dist'));
