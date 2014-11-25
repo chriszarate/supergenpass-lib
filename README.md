@@ -30,8 +30,11 @@ var masterPassword = 'master-password';
 // A URI or hostname of the site being visited.
 var URI = 'http://www.example.com/page.html';
 
+// A callback function to accept the generated password.
+var callback = function (password) {/* code */};
+
 // Generate the password.
-var generatedPassword = supergenpass(masterPassword, URI, {/* options */});
+var generatedPassword = supergenpass(masterPassword, URI, {/* options */}, callback);
 ```
 
 

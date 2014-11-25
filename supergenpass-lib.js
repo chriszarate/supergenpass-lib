@@ -41,18 +41,10 @@ var customBase64 = function (str) {
 
 // Hash the input for the requested number of rounds, then continue hashing
 // if the password policy remains unsatisfied.
-var generatePassword = function (input, length, hashFunction, rounds) {
-	if (rounds > 0 || !validatePassword(input, length)) {
-		return generatePassword(hashFunction(input), length, hashFunction, rounds - 1);
-	}
-	return input.substring(0, length);
-};
-
-// Generate password asynchronously.
-var generatePasswordAsync = function (input, length, hashFunction, rounds, callback) {
+var generatePassword = function (input, length, hashFunction, rounds, callback) {
 	if (rounds > 0 || !validatePassword(input, length)) {
 		process.nextTick(function () {
-			generatePasswordAsync(hashFunction(input), length, hashFunction, rounds - 1, callback);
+			generatePassword(hashFunction(input), length, hashFunction, rounds - 1, callback);
 		});
 		return;
 	}
@@ -125,6 +117,12 @@ var validateOptions = function (options) {
 
 };
 
+var validateCallback = function (callback) {
+	if (typeof callback !== 'function') {
+		throw new Error('Must provide callback function.');
+	}
+};
+
 // Isolate the domain name of a URL.
 var getDomainName = function (url, removeSubdomains) {
 
@@ -182,18 +180,14 @@ var cleanDomainName = function (hostname) {
 var api = function (masterPassword, url, options, callback) {
 
 	options = validateOptions(options);
+	validateCallback(callback);
 	validatePasswordInput(masterPassword);
 	validateCombinedPasswordInput(masterPassword + options.secret);
 
 	var domain = getDomainName(url, options.removeSubdomains);
 	var input = masterPassword + options.secret + ':' + domain;
 
-	if (typeof callback === 'function') {
-		generatePasswordAsync(input, options.length, hashFunctions[options.method], defaults.hashRounds, callback);
-		return true;
-	}
-
-	return generatePassword(input, options.length, hashFunctions[options.method], defaults.hashRounds);
+	generatePassword(input, options.length, hashFunctions[options.method], defaults.hashRounds, callback);
 
 };
 

@@ -21,7 +21,7 @@ exports.testFailures = function(test){
 
     data.forEach(function(c){
         test.throws(function(){
-            supergenpass(c[0], c[1], c[2]);
+            supergenpass(c[0], c[1], c[2], function () {});
         }, 'Dataset: ' + c[0] + ', ' + c[1] + ', ' + JSON.stringify(c[2]));
     });
 
