@@ -14,10 +14,8 @@ gulp.task('lint', function() {
 });
 
 gulp.task('clean', function(){
-	var clean = require('gulp-clean');
-
-	gulp.src('dist', {read: false})
-		.pipe(clean());
+	var del = require('del');
+    del(['dist', 'coverage']);
 });
 
 gulp.task('browserify', function(){
