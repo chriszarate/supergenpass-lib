@@ -8,9 +8,9 @@ var uglify = require('gulp-uglify');
 gulp.task('lint', function() {
 	var jshint = require('gulp-jshint');
 
-  gulp.src('*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+	gulp.src('*.js')
+		.pipe(jshint())
+		.pipe(jshint.reporter('default'));
 });
 
 gulp.task('clean', function(){
