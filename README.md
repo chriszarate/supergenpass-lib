@@ -34,7 +34,7 @@ var URI = 'http://www.example.com/page.html';
 var callback = function (password) {/* code */};
 
 // Generate the password.
-var generatedPassword = supergenpass(masterPassword, URI, {/* options */}, callback);
+supergenpass(masterPassword, URI, {/* options */}, callback);
 ```
 
 
