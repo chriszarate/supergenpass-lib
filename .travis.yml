@@ -1,6 +1,8 @@
 language: node_js
+
 node_js:
- - 0.10
-script:
- "npm run report-coverage"
+  - 6
+
 sudo: false
+
+after_success: npm run coverage

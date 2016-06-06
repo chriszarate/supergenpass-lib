@@ -22,7 +22,7 @@ npm install supergenpass-lib
 ## Usage
 
 ```javascript
-var supergenpass = require('supergenpass-lib');
+var sgp = require('supergenpass-lib');
 
 // A string containing the user's master password.
 var masterPassword = 'master-password';
@@ -34,22 +34,25 @@ var URI = 'http://www.example.com/page.html';
 var callback = function (password) {/* code */};
 
 // Generate the password.
-supergenpass(masterPassword, URI, {/* options */}, callback);
+sgp.generate(masterPassword, URI, {/* options */}, callback);
 ```
+
+**Note**: Version `3.0.0` introduces the `generate` method instead of making
+this function the root export. This change was made to align with
+[ES6 exports][es6-exports].
 
 
 ## Options
 
 As shown above, `supergenpass-lib` optionally accepts a hash map of options.
 
-### secret
+### hashRounds
 
-* Default `''`
-* Expects `String`
+* Default `10`
+* Expects `Number`
 
-A secret password to be appended to the master password before generating the
-password. This option is provided for convenience, as the same output can be
-produced by manually concatenating the master and secret passwords.
+Minimum number of rounds to hash the input. (Hashing may continue past the
+minimum until the password validation rules are satisfied.)
 
 ### length
 
@@ -63,10 +66,14 @@ additional entropy. (The value for those characters will always be `A`.)
 ### method
 
 * Default `'md5'`
-* Expects `String`
+* Expects `String` or `Function`
 
-A string specifying the requested hash function. The only supported values are
-`'md5'` or `'sha512'`.
+A string specifying the requested hash function. The only supported string
+values are `'md5'` or `'sha512'`.
+
+Alternatively, you can supply your own hash function. This hash function must
+accept a string value and return a string value. Returned hashes should be at
+least 24 characters and will be subject to SGP’s password validation rules.
 
 ### removeSubdomains
 
@@ -75,6 +82,15 @@ A string specifying the requested hash function. The only supported values are
 
 A boolean value directing whether or not to remove subdomains from the hostname
 before generating the password.
+
+### secret
+
+* Default `''`
+* Expects `String`
+
+A secret password to be appended to the master password before generating the
+password. This option is provided for convenience, as the same output can be
+produced by manually concatenating the master and secret passwords.
 
 
 ## Domain name isolation
@@ -100,13 +116,6 @@ var hostname = supergenpass.hostname('http://login.example.com/doLogin.htm', {
 ```
 
 
-## Browser environments
-
-To use `supergenpass-lib` in browser environments, run `gulp browserify`. Take
-the created `dist/supergenpass-lib.browser.js` and include it on your page. Use
-the global `supergenpass` as documented above.
-
-
 ## Explanation of the algorithm
 
 SuperGenPass is a very simple password hashing scheme. At its essence, it takes
@@ -121,6 +130,11 @@ hashing at least ten times to protect against rainbow tables. The hash is then
 cut to the user's preferred password length.
 
 For more detail, please see the (well-commented and concise) source code.
+
+
+## Tests
+
+Tests require Node `>=4.0`. Run `npm test`.
 
 
 ## Dependencies and license
@@ -146,6 +160,7 @@ author of the [SuperGenPass Chrome extension][chrome-ext].
 [gemnasium]: https://gemnasium.com/chriszarate/supergenpass-lib
 [code-climate]: https://codeclimate.com/chriszarate/supergenpass-lib
 [coveralls]: https://coveralls.io/r/chriszarate/supergenpass-lib?branch=master
+[es6-exports]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
 [crypto-js]: https://www.npmjs.org/package/crypto-js
 [denis]: http://sokolov.cc
 [chrome-ext]: https://chrome.google.com/extensions/detail/bmmmhbgdbpnbfefmacdlbpfgegcibkjo/
