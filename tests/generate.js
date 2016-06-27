@@ -52,6 +52,14 @@ const testData = [
     },
   ],
   [
+    'rT8y7pRDHa',
+    'test',
+    'example.com',
+    {
+      hashRounds: 1000,
+    },
+  ],
+  [
     'zPQSNhTzs9fS',
     'test',
     'https://www.google.com/',
