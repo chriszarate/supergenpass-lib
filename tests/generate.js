@@ -52,11 +52,11 @@ const testData = [
     },
   ],
   [
-    'rT8y7pRDHa',
+    'nCa5tyHdOQ',
     'test',
     'example.com',
     {
-      hashRounds: 1000,
+      hashRounds: 50,
     },
   ],
   [
