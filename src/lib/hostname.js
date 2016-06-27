@@ -6,6 +6,8 @@
  */
 
 import tldList from './tld-list';
+import endsWith from 'babel-runtime/core-js/string/ends-with';
+import find from 'babel-runtime/core-js/array/find';
 
 // Remove subdomains while respecting a number of secondary ccTLDs.
 function removeSubdomains(hostname) {
@@ -17,7 +19,7 @@ function removeSubdomains(hostname) {
   }
 
   // Try to find a match in the list of ccTLDs.
-  const ccTld = tldList.find(part => hostname.endsWith(part));
+  const ccTld = find(tldList, part => endsWith(hostname, part));
   if (ccTld) {
     // Get one extra part from the hostname.
     const partCount = ccTld.split('.').length + 1;
