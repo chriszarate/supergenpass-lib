@@ -19,7 +19,7 @@ function removeSubdomains(hostname) {
   }
 
   // Try to find a match in the list of ccTLDs.
-  const ccTld = find(tldList, part => endsWith(hostname, part));
+  const ccTld = find(tldList, part => endsWith(hostname, `.${part}`));
   if (ccTld) {
     // Get one extra part from the hostname.
     const partCount = ccTld.split('.').length + 1;

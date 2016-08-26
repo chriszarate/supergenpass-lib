@@ -18,6 +18,16 @@ const testData = [
     'mail.google.com',
   ],
   [
+    'www.chase.com',
+    'chase.com',
+    'www.chase.com',
+  ],
+  [
+    'www.cha.se.com',
+    'cha.se.com',
+    'www.cha.se.com',
+  ],
+  [
     'ftp://pandis.ucs.cam.ac.uk/media/',
     'cam.ac.uk',
     'pandis.ucs.cam.ac.uk',
