@@ -1,6 +1,6 @@
 {
   "name": "supergenpass-lib",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Generate passwords with SuperGenPass",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
