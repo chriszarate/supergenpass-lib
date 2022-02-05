@@ -75,6 +75,14 @@ Alternatively, you can supply your own hash function. This hash function must
 accept a string value and return a string value. Returned hashes should be at
 least 24 characters and will be subject to SGP’s password validation rules.
 
+### passthrough
+
+* Default `false`
+* Expects `Boolean`
+
+A boolean value directing whether or not to use the url as is without
+validation or changes.
+
 ### removeSubdomains
 
 * Default `true`

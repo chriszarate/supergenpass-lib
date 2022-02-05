@@ -39,6 +39,7 @@ function generate(
     hashRounds: 10,
     length: 10,
     method: 'md5',
+    passthrough: false,
     removeSubdomains: true,
     secret: '',
   };
@@ -50,7 +51,7 @@ function generate(
   validatePasswordLength(masterPassword + options.secret);
   validateLength(options.length);
 
-  const domain = hostname(url, options);
+  const domain = options.passthrough ? url : hostname(url, options);
   const input = `${masterPassword}${options.secret}:${domain}`;
 
   hashRound(input, options.length, hash(options.method), options.hashRounds, callback);
