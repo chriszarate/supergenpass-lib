@@ -123,6 +123,14 @@ const testData = [
     'rnXePhv0JG',
     'จงฝ่าฟันพัฒนาวิชาการ',
   ],
+  [
+    'pgQuWBavN6',
+    'test',
+    'email@example.com',
+    {
+      passthrough: true,
+    },
+  ],
 ];
 
 testData.forEach((args) => {
